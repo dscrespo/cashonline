@@ -22,4 +22,11 @@ public class LoanController {
     public List<LoanTO> getLoans(@PathVariable final int page, @PathVariable final int size ) {
         return loanService.findAll(page, size);
     }
+
+    @GetMapping("{page}/{size}/{userId}")
+    public List<LoanTO> getLoansByUserId(@PathVariable final int page,
+                                         @PathVariable final int size,
+                                         @PathVariable final long userId) {
+        return loanService.findAllByUserId(page, size, userId);
+    }
 }

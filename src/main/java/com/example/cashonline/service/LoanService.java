@@ -16,4 +16,8 @@ public class LoanService {
     public List<LoanTO> findAll(Integer page, Integer size) {
         return loanStore.getAllLoans(page, size);
     }
+
+    public List<LoanTO> findAllByUserId(Integer page, Integer size, Long userId) {
+        return loanStore.getAllLoansByUserId(page, size, userId);
+    }
 }

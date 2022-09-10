@@ -35,4 +35,14 @@ public class LoanStore {
             return Collections.emptyList();
         }
     }
+
+    public List<LoanTO> getAllLoansByUserId(Integer page, Integer size, Long userId){
+        Pageable paging = PageRequest.of(page, size);
+        Page<Loan> result = loanRepository.findByUserId(userId, paging);
+        if(result.hasContent()) {
+            return mappers.loansToLoansTO(result.getContent()).collect(Collectors.toList());
+        } else {
+            return Collections.emptyList();
+        }
+    }
 }
