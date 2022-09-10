@@ -1,16 +1,11 @@
 package com.example.cashonline.persistence.store;
 
-import com.example.cashonline.persistence.entity.Loan;
-import com.example.cashonline.persistence.entity.User;
 import com.example.cashonline.persistence.repository.UserRepository;
-import com.example.cashonline.pojo.api.loan.LoanTO;
 import com.example.cashonline.pojo.api.user.UserTO;
+import com.example.cashonline.pojo.mapper.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional
@@ -19,23 +14,11 @@ public class UserStore {
     @Autowired
     private UserRepository userRepository;
 
-    public UserTO findById(long id) {
-        UserTO user = new UserTO();
+    @Autowired
+    private Mappers mappers;
 
-        User dbUser = userRepository.findById(id).get();
-        user.setId(dbUser.getId());
-        user.setFirstName(dbUser.getFirstName());
-        user.setLastName(dbUser.getLastName());
-        List<LoanTO> loans = new ArrayList<>();
-        for (Loan dbloan : dbUser.getLoans()) {
-            LoanTO loan = new LoanTO();
-            loan.setId(dbloan.getId());
-            loan.setTotal(dbloan.getTotal());
-            loan.setUserId(dbloan.getUserId());
-            loans.add(loan);
-        }
-        user.setLoans(loans);
-        return user;
+    public UserTO findById(long id) {
+        return mappers.userToUserTO(userRepository.findById(id).get());
     }
 
     public void deleteUserById(long id) {
@@ -43,10 +26,7 @@ public class UserStore {
     }
 
     public void createUSer(UserTO request) {
-        User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        userRepository.save(user);
+        userRepository.save(mappers.userTOToUser(request));
     }
 
 }
