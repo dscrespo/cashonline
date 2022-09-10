@@ -12,7 +12,8 @@ public class LoanService {
 
     @Autowired
     LoanStore loanStore;
-    public List<LoanTO> findAll() {
-        return loanStore.getAllLoans();
+
+    public List<LoanTO> findAll(Integer page, Integer size) {
+        return loanStore.getAllLoans(page, size);
     }
 }
