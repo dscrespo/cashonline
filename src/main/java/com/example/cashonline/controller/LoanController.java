@@ -34,6 +34,7 @@ public class LoanController {
    */
 
    /*
+   @GetMapping()
    public List<LoanTO> getLoans(@RequestParam final int page,
                                  @RequestParam final int size) {
         return loanService.findAll(page, size);
