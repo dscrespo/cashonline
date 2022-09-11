@@ -66,11 +66,8 @@ public class ErrorResponse {
             this.stackTrace = "";
         }
 
-        public ErrorResponseBuilder withStackTrace(Exception ex){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ex.printStackTrace(pw);
-            this.stackTrace = sw.toString();
+        public ErrorResponseBuilder withStackTrace(String stackTrace){
+            this.stackTrace = stackTrace;
             return this;
         }
 
